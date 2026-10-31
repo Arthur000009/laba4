@@ -1,0 +1,20 @@
+package com.example.dostavka.repositories;
+
+import com.example.dostavka.models.Route;
+import jakarta.persistence.LockModeType;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RouteRepository extends JpaRepository<Route, Long> {
+  List<Route> findByStatus(String status);
+
+  @Lock(LockModeType.PESSIMISTIC_WRITE)
+  @Query("SELECT r FROM Route r WHERE r.id = :id")
+  Optional<Route> findByIdWithLock(@Param("id") Long id);
+}

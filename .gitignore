@@ -1,0 +1,15 @@
+target/
+
+.env
+.env.*
+!.env.example
+
+*.postman_environment.json
+newman/
+*.log
+
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
